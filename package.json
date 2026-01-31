@@ -1,0 +1,18 @@
+{
+  "name": "xss-hunter-ultimate",
+  "version": "1.0.0",
+  "description": "Advanced XSS Scanner with Multiple Payloads",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "axios": "^1.6.0",
+    "cheerio": "^1.0.0-rc.12",
+    "cors": "^2.8.5",
+    "node-html-parser": "^6.1.12",
+    "puppeteer": "^21.0.0",
+    "uuid": "^9.0.1"
+  }
+}
