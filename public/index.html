@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OXYLUS XSS HUNTER</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <h1><i class="fas fa-skull-crossbones"></i> OXYSEC</h1>
+                <span class="subtitle">Advanced XSS Penetration Suite</span>
+            </div>
+            <div class="status">
+                <span class="status-indicator active"></span>
+                <span>SYSTEM STATUS: ACTIVE</span>
+            </div>
+        </header>
+
+        <div class="dashboard">
+            <!-- Scanner Section -->
+            <div class="card main-scanner">
+                <h2><i class="fas fa-crosshairs"></i> XSS SCANNER</h2>
+                <div class="input-group">
+                    <input type="text" id="targetUrl" placeholder="https://target.com" value="">
+                    <button onclick="startScan()" class="btn-scan">
+                        <i class="fas fa-play"></i> INITIATE SCAN
+                    </button>
+                </div>
+                
+                <div class="scan-options">
+                    <h3><i class="fas fa-cog"></i> SCAN OPTIONS</h3>
+                    <div class="options-grid">
+                        <label class="option">
+                            <input type="checkbox" id="deepScan" checked>
+                            <span>Deep Scan</span>
+                        </label>
+                        <label class="option">
+                            <input type="checkbox" id="blindXSS" checked>
+                            <span>Blind XSS</span>
+                        </label>
+                        <label class="option">
+                            <input type="checkbox" id="domXSS" checked>
+                            <span>DOM XSS</span>
+                        </label>
+                        <label class="option">
+                            <input type="checkbox" id="obfuscated" checked>
+                            <span>Obfuscated Payloads</span>
+                        </label>
+                    </div>
+                    
+                    <div class="payload-selector">
+                        <h4>Payload Sets:</h4>
+                        <select id="payloadSet" multiple>
+                            <option value="basic" selected>Basic XSS</option>
+                            <option value="advanced" selected>Advanced</option>
+                            <option value="obfuscated" selected>Obfuscated</option>
+                            <option value="blind" selected>Blind XSS</option>
+                            <option value="dom" selected>DOM Based</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Results Panel -->
+            <div class="card results-panel">
+                <h2><i class="fas fa-bug"></i> VULNERABILITIES DETECTED</h2>
+                <div id="resultsContainer">
+                    <div class="empty-state">
+                        <i class="fas fa-search"></i>
+                        <p>Scan results will appear here</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Tools -->
+            <div class="card tools-panel">
+                <h2><i class="fas fa-tools"></i> PENETRATION TOOLS</h2>
+                <div class="tools-grid">
+                    <button class="tool-btn" onclick="crawlWebsite()">
+                        <i class="fas fa-spider"></i>
+                        <span>CRAWL LINKS</span>
+                    </button>
+                    <button class="tool-btn" onclick="advancedScan()">
+                        <i class="fas fa-brain"></i>
+                        <span>ADVANCED SCAN</span>
+                    </button>
+                    <button class="tool-btn" onclick="generateReport()">
+                        <i class="fas fa-file-alt"></i>
+                        <span>GENERATE REPORT</span>
+                    </button>
+                    <button class="tool-btn" onclick="openPayloadEditor()">
+                        <i class="fas fa-code"></i>
+                        <span>PAYLOAD EDITOR</span>
+                    </button>
+                </div>
+                
+                <div class="vulnerability-stats">
+                    <h3>DETECTION STATISTICS</h3>
+                    <div class="stats-grid">
+                        <div class="stat">
+                            <span class="stat-label">XSS Found</span>
+                            <span class="stat-value" id="xssCount">0</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Forms Found</span>
+                            <span class="stat-value" id="formsCount">0</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Endpoints</span>
+                            <span class="stat-value" id="endpointsCount">0</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-label">Security Headers</span>
+                            <span class="stat-value" id="headersCount">0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Live Monitor -->
+            <div class="card monitor-panel">
+                <h2><i class="fas fa-desktop"></i> LIVE MONITOR</h2>
+                <div class="log-container">
+                    <div id="liveLogs" class="logs">
+                        <!-- Logs will appear here -->
+                    </div>
+                </div>
+                <button class="btn-clear" onclick="clearLogs()">
+                    <i class="fas fa-trash"></i> CLEAR LOGS
+                </button>
+            </div>
+        </div>
+
+        <!-- Payload Database -->
+        <div class="card payload-database">
+            <h2><i class="fas fa-database"></i> XSS PAYLOAD DATABASE</h2>
+            <div class="payload-categories">
+                <div class="category">
+                    <h3>Basic Payloads</h3>
+                    <code>&lt;script&gt;alert('XSS')&lt;/script&gt;</code>
+                    <code>&lt;img src=x onerror=alert(1)&gt;</code>
+                </div>
+                <div class="category">
+                    <h3>Advanced</h3>
+                    <code>&lt;iframe src=javascript:alert(document.domain)&gt;</code>
+                    <code>&lt;svg onload=alert(window.location)&gt;</code>
+                </div>
+                <div class="category">
+                    <h3>Obfuscated</h3>
+                    <code>&lt;script&gt;eval(String.fromCharCode(...))&lt;/script&gt;</code>
+                    <code>&lt;img src=x onerror=eval(atob('payload'))&gt;</code>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+                              </html>
