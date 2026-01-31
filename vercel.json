@@ -1,13 +1,16 @@
 {
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
-  ],
   "functions": {
     "api/scan.js": {
-      "maxDuration": 60
+      "memory": 1024,
+      "maxDuration": 30
     },
     "api/crawl.js": {
-      "maxDuration": 60
+      "memory": 1024,
+      "maxDuration": 30
+    },
+    "api/report.js": {
+      "memory": 512,
+      "maxDuration": 10
     }
   }
 }
