@@ -1,0 +1,13 @@
+{
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
+  ],
+  "functions": {
+    "api/scan.js": {
+      "maxDuration": 60
+    },
+    "api/crawl.js": {
+      "maxDuration": 60
+    }
+  }
+}
